@@ -243,3 +243,31 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/OlamAppProductPolicy/Content/SharePointProjectItem.spdata
+/OlamAppProductPolicy/Content/Elements.xml
+/OlamAppProductPolicy/Content/bootstrap.min.css
+/OlamAppProductPolicy/Content/bootstrap-theme.min.css
+/OlamAppProductPolicy/Features
+/OlamAppProductPolicy/Fonts
+/OlamAppProductPolicy/Package
+/OlamAppProductPolicy/Lists
+/OlamAppProductPolicy/Images
+/OlamAppProductPolicy/Pages/SharePointProjectItem.spdata
+/OlamAppProductPolicy/Pages/Elements.xml
+/OlamAppProductPolicy/SharePointProjectItem.spdata
+/OlamAppProductPolicy/Scripts/_references.js
+/OlamAppProductPolicy/Scripts/survey.jquery.min.js
+/OlamAppProductPolicy/Scripts/SharePointProjectItem.spdata
+/OlamAppProductPolicy/Scripts/loadQuestions.sample.json
+/OlamAppProductPolicy/Scripts/jquery-1.9.1.min.map
+/OlamAppProductPolicy/Scripts/jquery-1.9.1.min.js
+/OlamAppProductPolicy/Scripts/jquery-1.9.1.js
+/OlamAppProductPolicy/Scripts/jquery-1.9.1.intellisense.js
+/OlamAppProductPolicy/Scripts/Elements.xml
+/OlamAppProductPolicy/Scripts/bootstrap.min.js
+/OlamAppProductPolicy/packages.config
+/OlamAppProductPolicy/OlamAppProductPolicy.csproj
+/OlamAppProductPolicy/Elements.xml
+/OlamAppProductPolicy/Content/App.css
+/OlamAppProductPolicy/AppManifest.xml
+/OlamAppProductPolicy.sln
