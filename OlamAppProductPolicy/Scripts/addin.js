@@ -4,10 +4,13 @@ ExecuteOrDelayUntilScriptLoaded(initializePage, "sp.js");
 
 function initializePage() {
     let clientContext = SP.ClientContext.get_current();
+    let questions =[],options=[];
+    let timeOut =1000,currenTime =0;
     $(document).ready(function () {
         try {
-            let questions = new questionMaster(clientContext);            
-            let option = new options(clientContext);
+            questions = new questionMaster(clientContext);            
+            option = new options(clientContext);
+            promise();
         }
         catch (ex) {
             alert('Error' + ex.message);
@@ -15,7 +18,20 @@ function initializePage() {
     });
 
 }
+function promise(){
+    if((questions.length && options.length) >=1){
+        //build the HTML
+        new Survey();
+    }
+    else if(currenTime < timeOut){
+        currenTime += 100;
+        setInterval(promise,100);
+    }
+    else{
+        alert('Failed to load Questions');
+    }
 
+}
 //Construct survey object
 function pages() {
     this.pages = [];
