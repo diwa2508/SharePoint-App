@@ -1,0 +1,7 @@
+﻿.errorMessage, .detailshidden{
+    visibility:hidden;
+}
+
+.list-group-item.checkbox{
+    float:right;
+}

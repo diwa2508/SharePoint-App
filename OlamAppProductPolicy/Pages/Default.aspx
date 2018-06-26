@@ -10,22 +10,28 @@
 <asp:Content ContentPlaceHolderID="PlaceHolderAdditionalPageHead" runat="server">
     <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
-    <SharePoint:ScriptLink Name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />
+    <SharePoint:ScriptLink Name="sp.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" /> 
+    <SharePoint:ScriptLink Name="sp.runtime.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />    
+    <SharePoint:ScriptLink Name="sp.UserProfiles.js" runat="server" OnDemand="true" LoadAfterUI="true" Localizable="false" />    
     <meta name="WebPartPageExpansion" content="full" />
 
     <!-- Add your CSS styles to the following file -->
-    <link rel="Stylesheet" type="text/css" href="../Content/App.css" />
+    <link rel="Stylesheet" type="text/css" href="../Content/addin.css" />
     <link rel="Stylesheet" type="text/css" href="../Content/bootstrap.min.css" />
     <link rel="Stylesheet" type="text/css" href="../Content/bootstrap-theme.min.css" />
 
     <!-- Add your JavaScript to the following file -->
+    <script type="text/javascript" src="../Scripts/buildSurvey.js"></script>
+    <script type="text/javascript" src="../Scripts/htmlBuilderLib.js"></script>
     <script type="text/javascript" src="../Scripts/data.js"></script>
+    <%--<script type="text/javascript" src="../Scripts/data-alternate.js"></script>--%>
+    <script type="text/javascript" src="../Scripts/common.js"></script>
+    <script type="text/javascript" src="../Scripts/userInfo.js"></script>
     <script type="text/javascript" src="../Scripts/addin.js"></script>
 </asp:Content>
 
 <%-- The markup in the following Content element will be placed in the TitleArea of the page --%>
 <asp:Content ContentPlaceHolderID="PlaceHolderPageTitleInTitleArea" runat="server">
-    New Product Approval Policy
 </asp:Content>
 
 <%-- The markup and script in the following Content element will be placed in the <body> of the page --%>
@@ -33,7 +39,7 @@
 
     <div id="questionsContainer" class="container">
     </div>
-
+    
     <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">

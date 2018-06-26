@@ -1,13 +1,15 @@
-﻿function questionMaster() {
+﻿"use strict";
+function questionMaster(clientContext) {
     this.questionMasterList = [];
-    this.loadQuestionMaster = function (clientContext) {
-        let list = clientContext.get_web().get_lists().getByTitle('QuestionMaster');
+    this.clientContext = clientContext;
+    this.loadQuestionMaster = function () {
+        let list = this.clientContext.get_web().get_lists().getByTitle("QuestionMaster");
         let camlQuery = new SP.CamlQuery();
-        let queryString = "<View><Query><OrderBy><FieldRef Name='ID' Ascending='True' /></OrderBy></Query></View>";
+        let queryString = "<View><Query><OrderBy><FieldRef Name=\"ID\" Ascending=\"True\" /></OrderBy></Query></View>";
         camlQuery.set_viewXml(queryString);
         let listItems = list.getItems(camlQuery);
-        clientContext.load(listItems);
-        clientContext.executeQueryAsync(
+        this.clientContext.load(listItems);
+        this.clientContext.executeQueryAsync(
         (sender, args) => {
             let listItemEnumerator = listItems.getEnumerator();
             let objArray = [];
@@ -15,26 +17,33 @@
                 let oListItem = listItemEnumerator.get_current();
                 let obj = {
                     id: oListItem.get_id(),
-                    question: oListItem.get_item('Question'),
-                    answerTypeID: oListItem.get_item('AnswerTypeID').get_lookupValue(),
-                    questionnaireSetID: oListItem.get_item('QuestionnaireSet').get_lookupValue(),
-                    isRequired: oListItem.get_item('IsRequired'),
-                    validation: oListItem.get_item('Validation'),
-                    optionGroupID: (oListItem.get_item('OptionGroupID') != null) ? oListItem.get_item('OptionGroupID').get_lookupValue() : ''
-                }
+                    question: oListItem.get_item("Question"),
+                    answerTypeID: oListItem.get_item("AnswerTypeID").get_lookupValue(),
+                    questionnaireSetID: oListItem.get_item("QuestionnaireSet").get_lookupValue(),
+                    isRequired: oListItem.get_item("IsRequired"),
+                    validation: oListItem.get_item("Validation"),
+                    optionGroupID: (oListItem.get_item("OptionGroupID") !== null) ? oListItem.get_item("OptionGroupID").get_lookupValue() : ""
+                };
                 objArray.push(obj);
             }
             this.questionMasterList = objArray;
+            optionObj = new options(this.clientContext);
         },
         OnQueryError);
     };
-    this.loadQuestionMaster(clientContext);
+    this.loadQuestionMaster();
 }
-function options() {
-    this.optionsList = [];
-    this.loadOptions = function (clientContext) {
-        let ccLoadedList = fetchList(clientContext, 'Options');
-        ccLoadedList.executeQueryAsync(
+function options(clientContext) {
+    this.optionsMasterList = [];
+    this.clientContext = clientContext;
+    this.loadOptions = function () {
+        let list = this.clientContext.get_web().get_lists().getByTitle("Options");
+        let camlQuery = new SP.CamlQuery();
+        let queryString = "<View><Query><OrderBy><FieldRef Name=\"ID\" Ascending=\"True\" /></OrderBy></Query></View>";
+        camlQuery.set_viewXml(queryString);
+        let listItems = list.getItems(camlQuery);
+        this.clientContext.load(listItems);
+        this.clientContext.executeQueryAsync(
         (sender, args) => {
             let listItemEnumerator = listItems.getEnumerator();
             let objArray = [];
@@ -42,22 +51,29 @@ function options() {
                 let oListItem = listItemEnumerator.get_current();
                 let obj = {
                     id: oListItem.get_id(),
-                    choice: oListItem.get_item('Choice'),
-                    optionGroupID: oListItem.get_item('OptionGroupID').get_lookupValue()
-                }
+                    choice: oListItem.get_item("Choice"),
+                    optionGroupID: oListItem.get_item("OptionGroupID").get_lookupValue()
+                };
                 objArray.push(obj);
             }
-            this.optionsList = objArray;
+            this.optionsMasterList = objArray;
+            answerTypeObj = new answerTypeMaster(this.clientContext);
         },
         OnQueryError);
     };
-    this.loadOptions(clientContext);
+    this.loadOptions();
 }
-function answerTypeMaster() {
+function answerTypeMaster(clientContext) {
     this.answerTypeList = [];
-    this.loadAnswerType = function (clientContext) {
-        let ccLoadedList = fetchList(clientContext, 'AnswerTypeMaster');
-        ccLoadedList.executeQueryAsync(
+    this.clientContext = clientContext;
+    this.loadAnswerType = function () {
+        let list = this.clientContext.get_web().get_lists().getByTitle("AnswerTypeMaster");
+        let camlQuery = new SP.CamlQuery();
+        let queryString = "<View><Query><OrderBy><FieldRef Name=\"ID\" Ascending=\"True\" /></OrderBy></Query></View>";
+        camlQuery.set_viewXml(queryString);
+        let listItems = list.getItems(camlQuery);
+        this.clientContext.load(listItems);
+        this.clientContext.executeQueryAsync(
         (sender, args) => {
             let listItemEnumerator = listItems.getEnumerator();
             let objArray = [];
@@ -65,21 +81,28 @@ function answerTypeMaster() {
                 let oListItem = listItemEnumerator.get_current();
                 let obj = {
                     id: oListItem.get_id(),
-                    answerType: oListItem.get_item('AnswerType')
-                }
+                    answerType: oListItem.get_item("AnswerType")
+                };
                 objArray.push(obj);
             }
             this.answerTypeList = objArray;
+            questionnaireObj = new questionnaireSet(this.clientContext);
         },
         OnQueryError);
-    }
-    this.loadAnswerType(clientContext);
+    };
+    this.loadAnswerType();
 }
-function questionnaireSet() {
+function questionnaireSet(clientContext) {
     this.questionnaireTypeList = [];
-    this.loadQuestionnaireType = function (clientContext) {
-        let ccLoadedList = fetchList(clientContext, 'QuestionnaireSet');
-        ccLoadedList.executeQueryAsync(
+    this.clientContext = clientContext;
+    this.loadQuestionnaireType = function () {
+        let list = clientContext.get_web().get_lists().getByTitle("QuestionnaireSet");
+        let camlQuery = new SP.CamlQuery();
+        let queryString = "<View><Query><OrderBy><FieldRef Name=\"ID\" Ascending=\"True\" /></OrderBy></Query></View>";
+        camlQuery.set_viewXml(queryString);
+        let listItems = list.getItems(camlQuery);
+        this.clientContext.load(listItems);
+        this.clientContext.executeQueryAsync(
         (sender, args) => {
             let listItemEnumerator = listItems.getEnumerator();
             let objArray = [];
@@ -87,25 +110,14 @@ function questionnaireSet() {
                 let oListItem = listItemEnumerator.get_current();
                 let obj = {
                     id: oListItem.get_id(),
-                    questionnaireType: oListItem.get_item('QuestionnaireType')
-                }
+                    questionnaireType: oListItem.get_item("QuestionnaireType")
+                };
                 objArray.push(obj);
             }
             this.questionnaireTypeList = objArray;
+            constructHTML();
         },
         OnQueryError);
-    }
-    this.loadQuestionnaireType(clientContext);
+    };
+    this.loadQuestionnaireType();
 }
-function fetchList(clientContext, listTitle) {
-    let list = clientContext.get_web().get_lists().getByTitle(listTitle);
-    let camlQuery = new SP.CamlQuery();
-    let queryString = "<View><Query><OrderBy><FieldRef Name='ID' Ascending='True' /></OrderBy></Query></View>";
-    camlQuery.set_viewXml(queryString);
-    let listItems = list.getItems(camlQuery);
-    return clientContext.load(listItems);
-}
-function OnQueryError(sender, args) {
-    alert('Unable to get items. Error:' + args.get_message() + '\n' + args.get_stackTrace());
-}
-
